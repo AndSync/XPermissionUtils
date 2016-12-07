@@ -24,9 +24,13 @@ XPermissionUtils.requestPermissions(Context context, int requestCode, String[] p
 ```
 
 这里主要注意这个Context必需是一个Activity
+
 如果在Activity中可以传`this`;
+
 如果在Fragment中传`getActivity()`;
+
 如果在View中传`getContext()`;
+
 等等.....
 
 ```
