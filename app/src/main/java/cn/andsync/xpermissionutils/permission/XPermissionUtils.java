@@ -1,4 +1,4 @@
-package cn.andsync.xpermissionutils.util;
+package cn.andsync.xpermissionutils.permission;
 
 import android.annotation.TargetApi;
 import android.app.Activity;

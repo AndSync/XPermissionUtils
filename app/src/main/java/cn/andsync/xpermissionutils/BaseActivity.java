@@ -3,7 +3,7 @@ package cn.andsync.xpermissionutils;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 
-import cn.andsync.xpermissionutils.util.XPermissionUtils;
+import cn.andsync.xpermissionutils.permission.XPermissionUtils;
 
 /**
  * Desc:Activity基类

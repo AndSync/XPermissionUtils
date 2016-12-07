@@ -1,21 +1,18 @@
 package cn.andsync.xpermissionutils;
 
 import android.Manifest;
-import android.content.ActivityNotFoundException;
-import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.provider.Settings;
-import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import cn.andsync.xpermissionutils.util.DialogUtil;
+import cn.andsync.xpermissionutils.util.LocationUtils;
 import cn.andsync.xpermissionutils.util.PermissionHelper;
 import cn.andsync.xpermissionutils.util.RequestCode;
-import cn.andsync.xpermissionutils.util.XPermissionUtils;
+import cn.andsync.xpermissionutils.permission.XPermissionUtils;
 
 /**
  * Desc:演示页面
@@ -90,10 +87,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
             @Override
             public void onPermissionDenied() {
-                showAlertDialog(MainActivity.this, "拨打电话");
+                DialogUtil.showAlertDialog(MainActivity.this, "拨打电话");
             }
         });
-
     }
 
     /**
@@ -121,13 +117,13 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                             Toast.makeText(MainActivity.this, "开始录音操作", Toast.LENGTH_LONG).show();
 
                         } else {
-                            showAlertDialog(MainActivity.this, "录音或麦克风");
+                            DialogUtil.showAlertDialog(MainActivity.this, "录音或麦克风");
                         }
                     }
 
                     @Override
                     public void onPermissionDenied() {
-                        showAlertDialog(MainActivity.this, "录音或麦克风");
+                        DialogUtil.showAlertDialog(MainActivity.this, "录音或麦克风");
                     }
                 });
     }
@@ -145,76 +141,27 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                             // TODO: 2016/12/7  相机操作
                             Toast.makeText(MainActivity.this, "打开相机操作", Toast.LENGTH_LONG).show();
                         } else {
-                            showAlertDialog(MainActivity.this, "相机");
+                            DialogUtil.showAlertDialog(MainActivity.this, "相机");
                         }
                     }
 
                     @Override
                     public void onPermissionDenied() {
-                        showAlertDialog(MainActivity.this, "相机");
+                        DialogUtil.showAlertDialog(MainActivity.this, "相机");
                     }
                 });
     }
 
+    /**
+     * 获取位置
+     */
     private void doStartLocation() {
         if (!PermissionHelper.isLocServiceEnable(this)) {
-            showLocServiceDialog(this);
+            DialogUtil.showLocServiceDialog(this);
             return;
         }
-        XPermissionUtils.requestPermissions(this, RequestCode.LOCATION, new String[]{
-                        Manifest.permission.ACCESS_COARSE_LOCATION,
-                        Manifest.permission.ACCESS_FINE_LOCATION,}
-                , new XPermissionUtils.OnPermissionListener() {
-                    @Override
-                    public void onPermissionGranted() {
-                        // TODO: 2016/12/7  定位操作
-                        Toast.makeText(MainActivity.this, "开始定位操作", Toast.LENGTH_LONG).show();
-                    }
-
-                    @Override
-                    public void onPermissionDenied() {
-                        showAlertDialog(MainActivity.this, "位置");
-                    }
-                });
+        LocationUtils.requestLocation(this);
     }
 
 
-    public static void showAlertDialog(final Context context, String str) {
-        new AlertDialog.Builder(context)
-                .setTitle("获取" + str + "权限被禁用")
-                .setMessage("请在 设置-应用管理-" + context.getString(R.string.app_name) + "-权限管理 (将" + str + "权限打开)")
-                .setNegativeButton("取消", null)
-                .setPositiveButton("去设置", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
-                        intent.setData(Uri.parse("package:" + context.getPackageName()));
-                        context.startActivity(intent);
-                    }
-                }).show();
-    }
-
-    public static void showLocServiceDialog(final Context context) {
-        new AlertDialog.Builder(context)
-                .setTitle("手机未开启位置服务")
-                .setMessage("请在 设置-系统安全-位置信息 (将位置服务打开))")
-                .setNegativeButton("取消", null)
-                .setPositiveButton("去设置", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        Intent intent = new Intent();
-                        intent.setAction(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                        try {
-                            context.startActivity(intent);
-                        } catch (ActivityNotFoundException ex) {
-                            intent.setAction(Settings.ACTION_SETTINGS);
-                            try {
-                                context.startActivity(intent);
-                            } catch (Exception e) {
-                            }
-                        }
-                    }
-                }).show();
-    }
 }
