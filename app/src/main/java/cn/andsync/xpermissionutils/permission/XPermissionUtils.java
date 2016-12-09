@@ -15,6 +15,7 @@ import java.util.List;
  * Author：LiZhimin
  * Date：2016/12/7 18:10
  * Version V1.0
+ * Link:<a href="https://github.com/AndSync/XPermissionUtils"></>
  * Copyright © 2016 LiZhimin All rights reserved.
  */
 public class XPermissionUtils {
