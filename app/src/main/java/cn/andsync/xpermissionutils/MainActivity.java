@@ -1,18 +1,21 @@
 package cn.andsync.xpermissionutils;
 
 import android.Manifest;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import cn.andsync.xpermissionutils.permission.XPermissionUtils;
 import cn.andsync.xpermissionutils.util.DialogUtil;
 import cn.andsync.xpermissionutils.util.LocationUtils;
 import cn.andsync.xpermissionutils.util.PermissionHelper;
 import cn.andsync.xpermissionutils.util.RequestCode;
-import cn.andsync.xpermissionutils.permission.XPermissionUtils;
 
 /**
  * Desc:演示页面
@@ -27,16 +30,20 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     private Button bt_record;
     private Button bt_camera;
     private Button bt_location;
+    Context context;
+    private Button bt_more;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        context = this;
         setContentView(R.layout.activity_main);
         bt_call = (Button) findViewById(R.id.bt_call);
         bt_call2 = (Button) findViewById(R.id.bt_call2);
         bt_record = (Button) findViewById(R.id.bt_record);
         bt_camera = (Button) findViewById(R.id.bt_camera);
         bt_location = (Button) findViewById(R.id.bt_location);
+        bt_more = (Button) findViewById(R.id.bt_more);
         setListener();
     }
 
@@ -46,6 +53,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         bt_record.setOnClickListener(this);
         bt_camera.setOnClickListener(this);
         bt_location.setOnClickListener(this);
+        bt_more.setOnClickListener(this);
     }
 
     @Override
@@ -66,9 +74,42 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             case R.id.bt_location:
                 doStartLocation();
                 break;
+            case R.id.bt_more:
+                doMorePermission();
+                break;
             default:
                 break;
         }
+    }
+
+    private void doMorePermission() {
+        XPermissionUtils.requestPermissions(this, RequestCode.MORE, new String[]{Manifest.permission.WRITE_CONTACTS,
+                Manifest.permission.READ_SMS}, new XPermissionUtils.OnPermissionListener() {
+            @Override
+            public void onPermissionGranted() {
+                Toast.makeText(context, "获取联系人,短信权限成功", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onPermissionDenied(String[] deniedPermissions) {
+                StringBuilder sBuider = new StringBuilder();
+                for (String deniedPermission : deniedPermissions) {
+                    if (deniedPermission.equals(Manifest.permission.WRITE_CONTACTS)) {
+                        sBuider.append("联系人");
+                        sBuider.append(",");
+                    }
+                    if (deniedPermission.equals(Manifest.permission.READ_SMS)) {
+                        sBuider.append("短信");
+                        sBuider.append(",");
+                    }
+                }
+                if (sBuider.length() > 0) sBuider.deleteCharAt(sBuider.length() - 1);
+                Toast.makeText(context, "获取" + sBuider.toString() + "权限失败", Toast.LENGTH_SHORT).show();
+                if (XPermissionUtils.hasAlwaysDeniedPermission(context, deniedPermissions)) {
+                    DialogUtil.showAlertDialog(MainActivity.this, sBuider.toString());
+                }
+            }
+        });
     }
 
     /**
@@ -86,8 +127,11 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             }
 
             @Override
-            public void onPermissionDenied() {
-                DialogUtil.showAlertDialog(MainActivity.this, "拨打电话");
+            public void onPermissionDenied(String[] deniedPermissions) {
+                Toast.makeText(context, "获取拨打电话权限失败", Toast.LENGTH_SHORT).show();
+                if (XPermissionUtils.hasAlwaysDeniedPermission(context, deniedPermissions)) {
+                    DialogUtil.showAlertDialog(MainActivity.this, "拨打电话");
+                }
             }
         });
     }
@@ -111,9 +155,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 , new XPermissionUtils.OnPermissionListener() {
                     @Override
                     public void onPermissionGranted() {
-
                         if (PermissionHelper.isAudioEnable()) {
-                            // TODO: 2016/12/7  录音操作
                             Toast.makeText(MainActivity.this, "开始录音操作", Toast.LENGTH_LONG).show();
 
                         } else {
@@ -122,8 +164,11 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                     }
 
                     @Override
-                    public void onPermissionDenied() {
-                        DialogUtil.showAlertDialog(MainActivity.this, "录音或麦克风");
+                    public void onPermissionDenied(String[] deniedPermissions) {
+                        Toast.makeText(context, "获取录音或麦克风权限失败", Toast.LENGTH_SHORT).show();
+                        if (XPermissionUtils.hasAlwaysDeniedPermission(context, deniedPermissions)) {
+                            DialogUtil.showAlertDialog(MainActivity.this, "录音或麦克风");
+                        }
                     }
                 });
     }
@@ -138,7 +183,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                     @Override
                     public void onPermissionGranted() {
                         if (PermissionHelper.isCameraEnable()) {
-                            // TODO: 2016/12/7  相机操作
                             Toast.makeText(MainActivity.this, "打开相机操作", Toast.LENGTH_LONG).show();
                         } else {
                             DialogUtil.showAlertDialog(MainActivity.this, "相机");
@@ -146,8 +190,26 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                     }
 
                     @Override
-                    public void onPermissionDenied() {
-                        DialogUtil.showAlertDialog(MainActivity.this, "相机");
+                    public void onPermissionDenied(String[] deniedPermissions) {
+                        Toast.makeText(context, "获取相机权限失败", Toast.LENGTH_SHORT).show();
+                        if (XPermissionUtils.hasAlwaysDeniedPermission(context, deniedPermissions)) {
+                            DialogUtil.showAlertDialog(MainActivity.this, "相机");
+                        }
+                    }
+                }, new XPermissionUtils.RationaleHandler() {
+
+                    @Override
+                    protected void showRationale() {
+                        new AlertDialog.Builder(context)
+                                .setTitle("温馨提示")
+                                .setMessage("我们需要相机权限才能正常使用该功能")
+                                .setNegativeButton("取消", null)
+                                .setPositiveButton("验证权限", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        requestPermissionsAgain();
+                                    }
+                                }).show();
                     }
                 });
     }

@@ -17,7 +17,7 @@ public class BaseActivity extends AppCompatActivity {
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[]
             grantResults) {
-        XPermissionUtils.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        XPermissionUtils.onRequestPermissionsResult(this,requestCode, permissions, grantResults);
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
 }

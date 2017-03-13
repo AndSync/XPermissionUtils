@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.text.TextUtils;
 import android.util.Log;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,12 +34,16 @@ public class LocationUtils {
                 , new XPermissionUtils.OnPermissionListener() {
                     @Override
                     public void onPermissionGranted() {
+                        //6.0以下这个无法判断是否获取位置权限
                         startLocation(context);
                     }
 
                     @Override
-                    public void onPermissionDenied() {
-                        DialogUtil.showAlertDialog(context,"位置");
+                    public void onPermissionDenied(String[] deniedPermissions) {
+                        Toast.makeText(context,"位置权限获取失败",Toast.LENGTH_SHORT).show();
+                        if(XPermissionUtils.hasAlwaysDeniedPermission(context,deniedPermissions)){
+                            DialogUtil.showAlertDialog(context, "位置");
+                        }
                     }
                 });
     }

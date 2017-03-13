@@ -27,13 +27,18 @@
         android:id="@+id/bt_camera"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="相机"/>
+        android:text="相机(带提示)"/>
 
     <Button
         android:id="@+id/bt_location"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="获取位置"/>
+    <Button
+        android:id="@+id/bt_more"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="获取联系人,短信（多个权限）"/>
 
 
 </LinearLayout>
