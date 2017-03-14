@@ -1,4 +1,4 @@
-package cn.andsync.xpermissionutils.util;
+package com.andsync.xpermissionutils.util;
 
 import android.Manifest;
 import android.content.Context;
@@ -12,10 +12,10 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.andsync.xpermissionutils.permission.XPermissionUtils;
+
 import java.util.ArrayList;
 import java.util.List;
-
-import cn.andsync.xpermissionutils.permission.XPermissionUtils;
 
 /**
  * Desc:获取位置工具类
@@ -34,15 +34,15 @@ public class LocationUtils {
                 , new XPermissionUtils.OnPermissionListener() {
                     @Override
                     public void onPermissionGranted() {
-                        //6.0以下这个无法判断是否获取位置权限
+                        //6.0以下这个无法明确判断是否获取位置权限
                         startLocation(context);
                     }
 
                     @Override
                     public void onPermissionDenied(String[] deniedPermissions) {
-                        Toast.makeText(context,"位置权限获取失败",Toast.LENGTH_SHORT).show();
-                        if(XPermissionUtils.hasAlwaysDeniedPermission(context,deniedPermissions)){
-                            DialogUtil.showAlertDialog(context, "位置");
+                        Toast.makeText(context, "位置权限获取失败", Toast.LENGTH_SHORT).show();
+                        if (XPermissionUtils.hasAlwaysDeniedPermission(context, deniedPermissions)) {
+                            DialogUtil.showPermissionManagerDialog(context, "位置");
                         }
                     }
                 });

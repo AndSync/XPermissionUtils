@@ -1,4 +1,4 @@
-package cn.andsync.xpermissionutils.util;
+package com.andsync.xpermissionutils.util;
 
 import android.content.ActivityNotFoundException;
 import android.content.Context;
@@ -8,7 +8,7 @@ import android.net.Uri;
 import android.provider.Settings;
 import android.support.v7.app.AlertDialog;
 
-import cn.andsync.xpermissionutils.R;
+import com.andsync.xpermissionutils.R;
 
 /**
  * Desc:
@@ -18,7 +18,8 @@ import cn.andsync.xpermissionutils.R;
  * Copyright © 2016 LiZhimin All rights reserved.
  */
 public class DialogUtil {
-    public static void showAlertDialog(final Context context, String str) {
+
+    public static void showPermissionManagerDialog(final Context context, String str) {
         new AlertDialog.Builder(context)
                 .setTitle("获取" + str + "权限被禁用")
                 .setMessage("请在 设置-应用管理-" + context.getString(R.string.app_name) + "-权限管理 (将" + str + "权限打开)")

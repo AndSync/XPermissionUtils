@@ -1,4 +1,4 @@
-package cn.andsync.xpermissionutils.util;
+package com.andsync.xpermissionutils.util;
 
 /**
  * Desc:请求码

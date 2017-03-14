@@ -1,4 +1,4 @@
-package cn.andsync.xpermissionutils.util;
+package com.andsync.xpermissionutils.util;
 
 import android.content.Context;
 import android.hardware.Camera;
@@ -58,6 +58,7 @@ public class PermissionHelper {
         }
         return isValid;
     }
+
     /**
      * 6.0以下判断是否开启相机权限
      */
@@ -96,4 +97,5 @@ public class PermissionHelper {
         }
         return false;
     }
+
 }
