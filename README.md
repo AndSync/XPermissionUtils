@@ -23,9 +23,13 @@ XPermissionUtils.requestPermissions(Context context, int requestCode, String[] p
 XPermissionUtils.requestPermissions(Context context, int requestCode, String[] permissions, OnPermissionListener listener, RationaleHandler handler)
 ```
 这里主要注意这个Context必需是一个Activity
+
 如果在Activity中可以传`this`;
+
 如果在Fragment中传`getActivity()`;
+
 如果在View中传`getContext()`;
+
 等等.....
 ```
 private void doOpenCamera() {
@@ -102,8 +106,11 @@ private void doMorePermission() {
 
 #特别鸣谢
 [MPermissionUtils](https://github.com/Airsaid/MPermissionUtils)
+
 [PermissionGen](https://github.com/lovedise/PermissionGen)
+
 [AndPermission](https://github.com/yanzhenjie/AndPermission)
+
 # License
 ```text
 Copyright 2017 Lizhimin
