@@ -1,10 +1,10 @@
 # XPermissionUtils
 可能是最精简的Android6.0运行时权限处理方式
-#使用方式
+## 使用方式
 以打开相机为例
-####1、首先`AndroidManifest`中配置必要的权限
+#### 1、首先`AndroidManifest`中配置必要的权限
 `<uses-permission android:name="android.permission.CAMERA"/>`
-####2、在基类中加上回调方法
+#### 2、在基类中加上回调方法
 ```
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[]
@@ -13,12 +13,12 @@
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
 ```
-####3、调用工具类方法
-1>拒绝后无提示
+#### 3、调用工具类方法
+(1) 拒绝后无提示
   ```
 XPermissionUtils.requestPermissions(Context context, int requestCode, String[] permissions, OnPermissionListener listener)
 ```
-2>拒绝后再次申请给出提示
+(2) 拒绝后再次申请给出提示
   ```
 XPermissionUtils.requestPermissions(Context context, int requestCode, String[] permissions, OnPermissionListener listener, RationaleHandler handler)
 ```
@@ -70,7 +70,7 @@ private void doOpenCamera() {
                 });
     }
 ```
-####4、一次申请多个权限
+#### 4、一次申请多个权限
 用户可能部分拒绝，因此在`onPermissionDenied(String[] deniedPermissions)`回调中返回了请求结果中所有被拒绝的权限，用户可用于比对判断出哪些权限被拒绝，给用户明确的提示
 ```
 private void doMorePermission() {
@@ -104,7 +104,7 @@ private void doMorePermission() {
     }
 ```
 
-#特别鸣谢
+# 特别鸣谢
 [MPermissionUtils](https://github.com/Airsaid/MPermissionUtils)
 
 [PermissionGen](https://github.com/lovedise/PermissionGen)
