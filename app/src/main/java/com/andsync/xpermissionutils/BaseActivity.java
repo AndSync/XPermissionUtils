@@ -2,7 +2,6 @@ package com.andsync.xpermissionutils;
 
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
-
 import com.andsync.xpermissionutils.permission.XPermissionUtils;
 
 /**
@@ -14,9 +13,8 @@ import com.andsync.xpermissionutils.permission.XPermissionUtils;
  */
 public class BaseActivity extends AppCompatActivity {
 
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[]
-            grantResults) {
+    @Override public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
+        @NonNull int[] grantResults) {
         XPermissionUtils.onRequestPermissionsResult(this, requestCode, permissions, grantResults);
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
