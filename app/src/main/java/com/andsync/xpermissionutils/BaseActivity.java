@@ -2,6 +2,7 @@ package com.andsync.xpermissionutils;
 
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
+
 import com.andsync.xpermissionutils.permission.XPermissionUtils;
 
 /**

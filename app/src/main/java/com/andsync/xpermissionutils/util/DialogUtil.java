@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.provider.Settings;
 import android.support.v7.app.AlertDialog;
+
 import com.andsync.xpermissionutils.R;
 
 /**
@@ -56,5 +57,4 @@ public class DialogUtil {
             })
             .show();
     }
-
 }

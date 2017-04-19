@@ -12,6 +12,7 @@ import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
+
 import com.andsync.xpermissionutils.permission.XPermissionUtils;
 import com.andsync.xpermissionutils.util.DialogUtil;
 import com.andsync.xpermissionutils.util.LocationUtils;
@@ -35,7 +36,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     private Button bt_location;
     private Button bt_more;
 
-    @Override protected void onCreate(Bundle savedInstanceState) {
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         context = this;
         setContentView(R.layout.activity_main);
@@ -57,7 +59,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         bt_more.setOnClickListener(this);
     }
 
-    @Override public void onClick(View view) {
+    @Override
+    public void onClick(View view) {
         switch (view.getId()) {
             case R.id.bt_call:
                 doCallPhone();
@@ -86,7 +89,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         XPermissionUtils.requestPermissions(this, RequestCode.MORE, new String[] {
             Manifest.permission.WRITE_CONTACTS, Manifest.permission.READ_SMS
         }, new XPermissionUtils.OnPermissionListener() {
-            @Override public void onPermissionGranted() {
+            @Override
+            public void onPermissionGranted() {
                 Toast.makeText(context, "获取联系人,短信权限成功", Toast.LENGTH_SHORT).show();
             }
 
@@ -122,7 +126,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         XPermissionUtils.requestPermissions(this, RequestCode.PHONE, new String[] {
             Manifest.permission.CALL_PHONE
         }, new XPermissionUtils.OnPermissionListener() {
-            @Override public void onPermissionGranted() {
+            @Override
+            public void onPermissionGranted() {
                 Intent intent = new Intent();
                 intent.setAction(Intent.ACTION_CALL);
                 intent.setData(Uri.parse("tel:10010"));
@@ -156,7 +161,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         XPermissionUtils.requestPermissions(this, RequestCode.AUDIO,
             new String[] { Manifest.permission.RECORD_AUDIO },
             new XPermissionUtils.OnPermissionListener() {
-                @Override public void onPermissionGranted() {
+                @Override
+                public void onPermissionGranted() {
                     if (PermissionHelper.isAudioEnable()) {
                         Toast.makeText(MainActivity.this, "开始录音操作", Toast.LENGTH_LONG).show();
                     } else {
@@ -183,7 +189,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         XPermissionUtils.requestPermissions(this, RequestCode.CAMERA, new String[] {
             Manifest.permission.CAMERA
         }, new XPermissionUtils.OnPermissionListener() {
-            @Override public void onPermissionGranted() {
+            @Override
+            public void onPermissionGranted() {
                 if (PermissionHelper.isCameraEnable()) {
                     Toast.makeText(MainActivity.this, "打开相机操作", Toast.LENGTH_LONG).show();
                 } else {
@@ -194,15 +201,16 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             @Override
             public void onPermissionDenied(final String[] deniedPermissions, boolean alwaysDenied) {
                 Toast.makeText(context, "获取相机权限失败", Toast.LENGTH_SHORT).show();
-                if (alwaysDenied) {
+                if (alwaysDenied) { // 拒绝后不再询问 -> 提示跳转到设置
                     DialogUtil.showPermissionManagerDialog(MainActivity.this, "相机");
-                } else {
+                } else {    // 拒绝 -> 提示此公告的意义，并可再次尝试获取权限
                     new AlertDialog.Builder(context).setTitle("温馨提示")
                         .setMessage("我们需要相机权限才能正常使用该功能")
                         .setNegativeButton("取消", null)
                         .setPositiveButton("验证权限", new DialogInterface.OnClickListener() {
                             @RequiresApi(api = Build.VERSION_CODES.M)
-                            @Override public void onClick(DialogInterface dialog, int which) {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
                                 requestPermissions(deniedPermissions, RequestCode.CAMERA);
                             }
                         })

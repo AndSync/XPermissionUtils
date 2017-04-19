@@ -11,7 +11,9 @@ import android.support.v4.app.ActivityCompat;
 import android.text.TextUtils;
 import android.util.Log;
 import android.widget.Toast;
+
 import com.andsync.xpermissionutils.permission.XPermissionUtils;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,7 +36,8 @@ public class LocationUtils {
                 startLocation(context);
             }
 
-            @Override public void onPermissionDenied(String[] deniedPermissions, boolean alwaysDenied) {
+            @Override
+            public void onPermissionDenied(String[] deniedPermissions, boolean alwaysDenied) {
                 Toast.makeText(context, "位置权限获取失败", Toast.LENGTH_SHORT).show();
                 if (alwaysDenied) {
                     DialogUtil.showPermissionManagerDialog(context, "位置");
