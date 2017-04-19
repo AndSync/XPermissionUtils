@@ -19,9 +19,11 @@ public void onRequestPermissionsResult(int requestCode,
 #### 3、调用工具类方法
 **注意**
 * requestPermissions第一个参数必须为activity
-* XPermissionUtils.OnPermissionListener监听中有两个回调方法
-`onPermissionGranted()`授权成功后的回调
-`onPermissionDenied(final String[] deniedPermissions, boolean alwaysDenied)`授权失败后的回答，deniedPermissions代表被拒绝的权限，alwaysDenied代表是否永远被拒绝
+* XPermissionUtils.OnPermissionListener监听中有两个回调方法<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;`onPermissionGranted()`授权成功后的回调<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;`onPermissionDenied(final String[] deniedPermissions, boolean alwaysDenied)`授权失败后的回调<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;deniedPermissions代表被拒绝的权限<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;alwaysDenied代表是否永远被拒绝
 * 申请权限由String数组决定，如`new String[] {Manifest.permission.CAMERA, Manifest.permission.RECORD_AUDIO}`
 
 ```java
