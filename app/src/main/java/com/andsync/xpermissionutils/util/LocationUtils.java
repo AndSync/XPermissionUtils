@@ -25,42 +25,40 @@ import java.util.List;
  * Copyright © 2016 LiZhimin All rights reserved.
  */
 public class LocationUtils {
-    private static String TAG = "LocationUtil";
+    private static final String TAG = "LocationUtil";
 
     public static void requestLocation(final Context context) {
-        XPermissionUtils.requestPermissions(context, RequestCode.LOCATION, new String[]{
-                        Manifest.permission.ACCESS_COARSE_LOCATION,
-                        Manifest.permission.ACCESS_FINE_LOCATION,}
-                , new XPermissionUtils.OnPermissionListener() {
-                    @Override
-                    public void onPermissionGranted() {
-                        //6.0以下这个无法明确判断是否获取位置权限
-                        startLocation(context);
-                    }
+        XPermissionUtils.requestPermissions(context, RequestCode.LOCATION, new String[] {
+            Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION,
+        }, new XPermissionUtils.OnPermissionListener() {
+            @Override public void onPermissionGranted() {
+                //6.0以下这个无法明确判断是否获取位置权限
+                startLocation(context);
+            }
 
-                    @Override
-                    public void onPermissionDenied(String[] deniedPermissions) {
-                        Toast.makeText(context, "位置权限获取失败", Toast.LENGTH_SHORT).show();
-                        if (XPermissionUtils.hasAlwaysDeniedPermission(context, deniedPermissions)) {
-                            DialogUtil.showPermissionManagerDialog(context, "位置");
-                        }
-                    }
-                });
+            @Override
+            public void onPermissionDenied(String[] deniedPermissions, boolean alwaysDenied) {
+                Toast.makeText(context, "位置权限获取失败", Toast.LENGTH_SHORT).show();
+                if (alwaysDenied) {
+                    DialogUtil.showPermissionManagerDialog(context, "位置");
+                }
+            }
+        });
     }
-
 
     private static void startLocation(Context context) {
         //获取地理位置管理器
-        LocationManager locationManager = (LocationManager) context.getSystemService(Context
-                .LOCATION_SERVICE);
+        LocationManager locationManager =
+            (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
         //获取所有可用的位置提供器
         List<String> providers = locationManager.getProviders(true);
         if (providers == null) return;
 
         //获取Location
-        if (ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION) !=
-                PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(context, Manifest
-                .permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+        if (ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION)
+            != PackageManager.PERMISSION_GRANTED
+            && ActivityCompat.checkSelfPermission(context,
+            Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             //    ActivityCompat#requestPermissions
             // here to request the missing permissions, and then overriding
             //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
@@ -103,23 +101,19 @@ public class LocationUtils {
 
     static LocationListener locationListener = new LocationListener() {
 
-        @Override
-        public void onStatusChanged(String provider, int status, Bundle arg2) {
+        @Override public void onStatusChanged(String provider, int status, Bundle arg2) {
 
         }
 
-        @Override
-        public void onProviderEnabled(String provider) {
+        @Override public void onProviderEnabled(String provider) {
 
         }
 
-        @Override
-        public void onProviderDisabled(String provider) {
+        @Override public void onProviderDisabled(String provider) {
 
         }
 
-        @Override
-        public void onLocationChanged(Location location) {
+        @Override public void onLocationChanged(Location location) {
             //如果位置发生变化,重新显示
             saveLocation(location);
         }
@@ -136,5 +130,4 @@ public class LocationUtils {
             Log.d(TAG, "longitude:" + longitude);
         }
     }
-
 }

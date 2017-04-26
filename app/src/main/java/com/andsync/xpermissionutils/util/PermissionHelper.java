@@ -21,12 +21,12 @@ public class PermissionHelper {
     public static boolean isAudioEnable() {
         boolean isValid = true;
         AudioRecord mRecorder;
-        int bufferSize = AudioRecord.getMinBufferSize(8000,
-                AudioFormat.CHANNEL_IN_MONO, AudioFormat.ENCODING_PCM_16BIT);
+        int bufferSize = AudioRecord.getMinBufferSize(8000, AudioFormat.CHANNEL_IN_MONO,
+            AudioFormat.ENCODING_PCM_16BIT);
         short[] mBuffer = new short[bufferSize];
-        mRecorder = new AudioRecord(MediaRecorder.AudioSource.MIC, 8000,
-                AudioFormat.CHANNEL_IN_MONO, AudioFormat.ENCODING_PCM_16BIT,
-                bufferSize);
+        mRecorder =
+            new AudioRecord(MediaRecorder.AudioSource.MIC, 8000, AudioFormat.CHANNEL_IN_MONO,
+                AudioFormat.ENCODING_PCM_16BIT, bufferSize);
         //开始录制音频
         try {
             // 防止某些手机崩溃，例如联想
@@ -36,7 +36,7 @@ public class PermissionHelper {
             isValid = false;
             return isValid;
         } finally {
-
+            // TODO
         }
         int readSize = mRecorder.read(mBuffer, 0, mBuffer.length);
         if (AudioRecord.ERROR_INVALID_OPERATION != readSize) {
@@ -88,8 +88,8 @@ public class PermissionHelper {
      * 手机是否开启位置服务，如果没有开启那么所有app将不能使用定位功能
      */
     public static boolean isLocServiceEnable(Context context) {
-        LocationManager locationManager
-                = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
+        LocationManager locationManager =
+            (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
         boolean gps = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
         boolean network = locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
         if (gps || network) {
@@ -97,5 +97,4 @@ public class PermissionHelper {
         }
         return false;
     }
-
 }

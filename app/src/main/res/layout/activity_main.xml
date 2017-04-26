@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -9,36 +9,36 @@
         android:id="@+id/bt_call"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="拨打电话"/>
+        android:text="拨打电话" />
 
     <Button
         android:id="@+id/bt_call2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="拨打电话2"/>
+        android:text="拨打电话2" />
 
     <Button
         android:id="@+id/bt_record"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="录音"/>
+        android:text="录音" />
 
     <Button
         android:id="@+id/bt_camera"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="相机(带提示)"/>
+        android:text="相机(带提示)" />
 
     <Button
         android:id="@+id/bt_location"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="获取位置"/>
+        android:text="获取位置" />
+
     <Button
         android:id="@+id/bt_more"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="获取联系人,短信（多个权限）"/>
-
+        android:text="获取联系人,短信（多个权限）" />
 
 </LinearLayout>
