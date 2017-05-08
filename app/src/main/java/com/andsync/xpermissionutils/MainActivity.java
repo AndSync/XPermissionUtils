@@ -12,8 +12,7 @@ import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
-
-import com.andsync.xpermissionutils.permission.XPermissionUtils;
+import com.andsync.xpermission.XPermissionUtils;
 import com.andsync.xpermissionutils.util.DialogUtil;
 import com.andsync.xpermissionutils.util.LocationUtils;
 import com.andsync.xpermissionutils.util.PermissionHelper;
@@ -110,8 +109,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 if (sBuilder.length() > 0) {
                     sBuilder.deleteCharAt(sBuilder.length() - 1);
                 }
-                Toast.makeText(context, "获取" + sBuilder.toString() + "权限失败", Toast.LENGTH_SHORT)
-                    .show();
+                Toast.makeText(context, "获取" + sBuilder.toString() + "权限失败", Toast.LENGTH_SHORT).show();
                 if (alwaysDenied) {
                     DialogUtil.showPermissionManagerDialog(MainActivity.this, sBuilder.toString());
                 }
@@ -158,8 +156,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
      * 录音
      */
     private void doRecord() {
-        XPermissionUtils.requestPermissions(this, RequestCode.AUDIO,
-            new String[] { Manifest.permission.RECORD_AUDIO },
+        XPermissionUtils.requestPermissions(this, RequestCode.AUDIO, new String[] { Manifest.permission.RECORD_AUDIO },
             new XPermissionUtils.OnPermissionListener() {
                 @Override
                 public void onPermissionGranted() {

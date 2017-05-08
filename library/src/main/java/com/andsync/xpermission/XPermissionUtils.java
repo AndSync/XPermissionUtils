@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.andsync.xpermissionutils.permission;
+package com.andsync.xpermission;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
@@ -87,12 +87,10 @@ public class XPermissionUtils {
     /**
      * 获取请求权限中需要授权的权限
      */
-    private static String[] getDeniedPermissions(@NonNull Context context,
-        @NonNull String[] permissions) {
+    private static String[] getDeniedPermissions(@NonNull Context context, @NonNull String[] permissions) {
         List<String> deniedPermissions = new ArrayList();
         for (String permission : permissions) {
-            if (ContextCompat.checkSelfPermission(context, permission)
-                == PackageManager.PERMISSION_DENIED) {
+            if (ContextCompat.checkSelfPermission(context, permission) == PackageManager.PERMISSION_DENIED) {
                 deniedPermissions.add(permission);
             }
         }
@@ -101,17 +99,12 @@ public class XPermissionUtils {
 
     /**
      * 是否彻底拒绝了某项权限
-     * 此方法单独调用无意义
-     * 在Activity.onRequestPermissionsResult()判读有denied调用
-     * http://www.jcodecraeer.com/a/anzhuokaifa/androidkaifa/2015/0916/3464.html
      */
-    private static boolean hasAlwaysDeniedPermission(@NonNull Context context,
-        @NonNull String... deniedPermissions) {
+    private static boolean hasAlwaysDeniedPermission(@NonNull Context context, @NonNull String... deniedPermissions) {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) return false;
         boolean rationale;
         for (String permission : deniedPermissions) {
-            rationale =
-                ActivityCompat.shouldShowRequestPermissionRationale((Activity) context, permission);
+            rationale = ActivityCompat.shouldShowRequestPermissionRationale((Activity) context, permission);
             if (!rationale) return true;
         }
         return false;

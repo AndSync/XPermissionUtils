@@ -11,9 +11,7 @@ import android.support.v4.app.ActivityCompat;
 import android.text.TextUtils;
 import android.util.Log;
 import android.widget.Toast;
-
-import com.andsync.xpermissionutils.permission.XPermissionUtils;
-
+import com.andsync.xpermission.XPermissionUtils;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,7 +29,8 @@ public class LocationUtils {
         XPermissionUtils.requestPermissions(context, RequestCode.LOCATION, new String[] {
             Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION,
         }, new XPermissionUtils.OnPermissionListener() {
-            @Override public void onPermissionGranted() {
+            @Override
+            public void onPermissionGranted() {
                 //6.0以下这个无法明确判断是否获取位置权限
                 startLocation(context);
             }
@@ -48,8 +47,7 @@ public class LocationUtils {
 
     private static void startLocation(Context context) {
         //获取地理位置管理器
-        LocationManager locationManager =
-            (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
+        LocationManager locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
         //获取所有可用的位置提供器
         List<String> providers = locationManager.getProviders(true);
         if (providers == null) return;
@@ -57,8 +55,8 @@ public class LocationUtils {
         //获取Location
         if (ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION)
             != PackageManager.PERMISSION_GRANTED
-            && ActivityCompat.checkSelfPermission(context,
-            Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            && ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_COARSE_LOCATION)
+            != PackageManager.PERMISSION_GRANTED) {
             //    ActivityCompat#requestPermissions
             // here to request the missing permissions, and then overriding
             //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
@@ -101,19 +99,23 @@ public class LocationUtils {
 
     static LocationListener locationListener = new LocationListener() {
 
-        @Override public void onStatusChanged(String provider, int status, Bundle arg2) {
+        @Override
+        public void onStatusChanged(String provider, int status, Bundle arg2) {
 
         }
 
-        @Override public void onProviderEnabled(String provider) {
+        @Override
+        public void onProviderEnabled(String provider) {
 
         }
 
-        @Override public void onProviderDisabled(String provider) {
+        @Override
+        public void onProviderDisabled(String provider) {
 
         }
 
-        @Override public void onLocationChanged(Location location) {
+        @Override
+        public void onLocationChanged(Location location) {
             //如果位置发生变化,重新显示
             saveLocation(location);
         }
