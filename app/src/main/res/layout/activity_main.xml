@@ -21,7 +21,7 @@
         android:id="@+id/bt_record"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="录音" />
+        android:text="录音(带提示)" />
 
     <Button
         android:id="@+id/bt_camera"

@@ -36,8 +36,7 @@ import java.util.List;
  */
 public class XPermissionUtils {
 
-    private static final int ILLEGAL_REQUEST_CODE = -1;
-    private static int mRequestCode = ILLEGAL_REQUEST_CODE;
+    private static int mRequestCode = -1;
     private static OnPermissionListener mOnPermissionListener;
 
     public interface OnPermissionListener {
@@ -48,16 +47,23 @@ public class XPermissionUtils {
     }
 
     @TargetApi(Build.VERSION_CODES.M)
-    public static void requestPermissions(@NonNull Context context, @NonNull int requestCode,
-        @NonNull String[] permissions, OnPermissionListener listener) {
-        if (!(context instanceof Activity)) {
+    public static void requestPermissionsAgain(@NonNull Context context, @NonNull String[] permissions,
+        @NonNull int requestCode) {
+        if (context instanceof Activity) {
+            ((Activity) context).requestPermissions(permissions, requestCode);
+        } else {
             throw new IllegalArgumentException("Context must be an Activity");
         }
+    }
+
+    @TargetApi(Build.VERSION_CODES.M)
+    public static void requestPermissions(@NonNull Context context, @NonNull int requestCode,
+        @NonNull String[] permissions, OnPermissionListener listener) {
         mRequestCode = requestCode;
         mOnPermissionListener = listener;
         String[] deniedPermissions = getDeniedPermissions(context, permissions);
         if (deniedPermissions.length > 0) {
-            ((Activity) context).requestPermissions(deniedPermissions, requestCode);
+            requestPermissionsAgain(context, permissions, requestCode);
         } else {
             if (mOnPermissionListener != null) mOnPermissionListener.onPermissionGranted();
         }
@@ -68,10 +74,7 @@ public class XPermissionUtils {
      */
     public static void onRequestPermissionsResult(@NonNull Activity context, int requestCode,
         @NonNull String[] permissions, int[] grantResults) {
-        if (mRequestCode == ILLEGAL_REQUEST_CODE) {
-            throw new IllegalArgumentException("illegal request code");
-        }
-        if (requestCode == mRequestCode) {
+        if (mRequestCode != -1 && requestCode == mRequestCode) {
             if (mOnPermissionListener != null) {
                 String[] deniedPermissions = getDeniedPermissions(context, permissions);
                 if (deniedPermissions.length > 0) {
