@@ -14,7 +14,7 @@ dependencies {
 <dependency>
   <groupId>com.andsync.xpermission</groupId>
   <artifactId>XPermissionUtils</artifactId>
-  <version>1.0</version>
+  <version>1.1</version>
   <type>pom</type>
 </dependency>
 ```
