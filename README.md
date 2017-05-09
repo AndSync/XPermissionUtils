@@ -2,6 +2,22 @@
 可能是最精简的Android6.0运行时权限处理方式
 ## 流程图
 ![](https://github.com/JWBlueLiu/XPermissionUtils/blob/master/art/Flow%20Chart.png?raw=true)
+## 引入方式
+1、gradle引入
+```
+dependencies {
+    compile 'com.andsync.xpermission:XPermissionUtils:1.0'
+}
+```
+2、Maven引入
+```
+<dependency>
+  <groupId>com.andsync.xpermission</groupId>
+  <artifactId>XPermissionUtils</artifactId>
+  <version>1.0</version>
+  <type>pom</type>
+</dependency>
+```
 ## 使用方式
 以打开相机为例
 #### 1、首先`AndroidManifest`中配置必要的权限
