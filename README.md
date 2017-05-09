@@ -6,7 +6,7 @@
 1、gradle引入
 ```
 dependencies {
-    compile 'com.andsync.xpermission:XPermissionUtils:1.0'
+    compile 'com.andsync.xpermission:XPermissionUtils:1.1'
 }
 ```
 2、Maven引入
