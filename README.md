@@ -24,7 +24,7 @@ dependencies {
 `<uses-permission android:name="android.permission.CAMERA"/>`
 #### 2、在基类中加上回调方法
 ```java
-@Override
+    @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
         @NonNull int[] grantResults) {
         XPermissionUtils.onRequestPermissionsResult(this, requestCode, permissions, grantResults);
