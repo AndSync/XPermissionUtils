@@ -44,39 +44,39 @@ public void onRequestPermissionsResult(int requestCode,
 
 ```java
 private void doOpenCamera() {
-    XPermissionUtils.requestPermissions(this, RequestCode.CAMERA, new String[] {
-        Manifest.permission.CAMERA
-    }, new XPermissionUtils.OnPermissionListener() {
-        @Override
-        public void onPermissionGranted() {
-            if (PermissionHelper.isCameraEnable()) {
-                Toast.makeText(MainActivity.this, "打开相机操作", Toast.LENGTH_LONG).show();
-            } else {
-                DialogUtil.showPermissionManagerDialog(MainActivity.this, "相机");
-            }
-        }
+        XPermissionUtils.requestPermissions(this, RequestCode.CAMERA, new String[] { Manifest.permission.CAMERA },
+            new XPermissionUtils.OnPermissionListener() {
+                @Override
+                public void onPermissionGranted() {
+                    if (PermissionHelper.isCameraEnable()) {
+                        Toast.makeText(MainActivity.this, "打开相机操作", Toast.LENGTH_LONG).show();
+                    } else {
+                        DialogUtil.showPermissionManagerDialog(MainActivity.this, "相机");
+                    }
+                }
 
-        @Override
-        public void onPermissionDenied(final String[] deniedPermissions, boolean alwaysDenied) {
-            Toast.makeText(context, "获取相机权限失败", Toast.LENGTH_SHORT).show();
-            if (alwaysDenied) { // 拒绝后不再询问 -> 提示跳转到设置
-                DialogUtil.showPermissionManagerDialog(MainActivity.this, "相机");
-            } else {    // 拒绝 -> 提示此公告的意义，并可再次尝试获取权限
-                new AlertDialog.Builder(context).setTitle("温馨提示")
-                    .setMessage("我们需要相机权限才能正常使用该功能")
-                    .setNegativeButton("取消", null)
-                    .setPositiveButton("验证权限", new DialogInterface.OnClickListener() {
-                        @RequiresApi(api = Build.VERSION_CODES.M)
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            requestPermissions(deniedPermissions, RequestCode.CAMERA);
-                        }
-                    })
-                    .show();
-            }
-        }
-    });
-}
+                @Override
+                public void onPermissionDenied(final String[] deniedPermissions, boolean alwaysDenied) {
+                    Toast.makeText(context, "获取相机权限失败", Toast.LENGTH_SHORT).show();
+                    if (alwaysDenied) { // 拒绝后不再询问 -> 提示跳转到设置
+                        DialogUtil.showPermissionManagerDialog(MainActivity.this, "相机");
+                    } else {    // 拒绝 -> 提示此公告的意义，并可再次尝试获取权限
+                        new AlertDialog.Builder(context).setTitle("温馨提示")
+                            .setMessage("我们需要相机权限才能正常使用该功能")
+                            .setNegativeButton("取消", null)
+                            .setPositiveButton("验证权限", new DialogInterface.OnClickListener() {
+                                @RequiresApi(api = Build.VERSION_CODES.M)
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    XPermissionUtils.requestPermissionsAgain(context, deniedPermissions,
+                                        RequestCode.CAMERA);
+                                }
+                            })
+                            .show();
+                    }
+                }
+            });
+    }
 ```
 
 # 特别鸣谢
