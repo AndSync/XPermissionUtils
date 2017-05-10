@@ -1,7 +1,7 @@
 # # XPermissionUtils
 可能是最精简的Android6.0运行时权限处理方式
 ## 流程图
-![](https://github.com/JWBlueLiu/XPermissionUtils/blob/master/art/Flow%20Chart.png?raw=true)
+![](https://github.com/AndSync/XPermissionUtils/blob/master/art/Flow%20Chart.png)
 ## 引入方式
 1、gradle引入
 ```
