@@ -25,12 +25,11 @@ dependencies {
 #### 2、在基类中加上回调方法
 ```java
 @Override
-public void onRequestPermissionsResult(int requestCode,
-    @NonNull String[] permissions,
-    @NonNull int[] grantResults) {
-    XPermissionUtils.onRequestPermissionsResult(requestCode, permissions, grantResults);
-    super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-}
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
+        @NonNull int[] grantResults) {
+        XPermissionUtils.onRequestPermissionsResult(this, requestCode, permissions, grantResults);
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+    }
 ```
 #### 3、调用工具类方法
 **注意**
@@ -38,8 +37,7 @@ public void onRequestPermissionsResult(int requestCode,
 * XPermissionUtils.OnPermissionListener监听中有两个回调方法<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;`onPermissionGranted()`授权成功后的回调<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;`onPermissionDenied(final String[] deniedPermissions, boolean alwaysDenied)`授权失败后的回调<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;deniedPermissions代表被拒绝的权限<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;alwaysDenied代表是否永远被拒绝
+&nbsp;&nbsp;&nbsp;&nbsp;其中deniedPermissions标识被拒绝的权限alwaysDenied标识是否永远被拒绝
 * 申请权限由String数组决定，如`new String[] {Manifest.permission.CAMERA, Manifest.permission.RECORD_AUDIO}`
 
 ```java
