@@ -1,5 +1,5 @@
 # # XPermissionUtils
-可能是最精简的Android6.0运行时权限处理方式
+可能是最精简的Android6.0运行时权限处理方式，支持Rationale提示，只有一个类，100行代码，所有弹窗等操作由用户自行处理，在Demo中也有提供代码示例
 ## 流程图
 ![](https://github.com/AndSync/XPermissionUtils/blob/master/art/Flow%20Chart.png)
 ## 引入方式
