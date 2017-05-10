@@ -180,7 +180,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
                                     XPermissionUtils.requestPermissionsAgain(context, deniedPermissions,
-                                        RequestCode.CAMERA);
+                                        RequestCode.AUDIO);
                                 }
                             })
                             .show();
