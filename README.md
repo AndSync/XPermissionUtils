@@ -8,7 +8,7 @@
 1、gradle引入
 ```
 dependencies {
-    compile 'com.andsync.xpermission:XPermissionUtils:1.1'
+    compile 'com.andsync.xpermission:XPermissionUtils:1.2'
 }
 ```
 2、Maven引入
@@ -16,7 +16,7 @@ dependencies {
 <dependency>
   <groupId>com.andsync.xpermission</groupId>
   <artifactId>XPermissionUtils</artifactId>
-  <version>1.1</version>
+  <version>1.2</version>
   <type>pom</type>
 </dependency>
 ```

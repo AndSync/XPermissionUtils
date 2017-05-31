@@ -56,13 +56,12 @@ public class XPermissionUtils {
         }
     }
 
-    @TargetApi(Build.VERSION_CODES.M)
     public static void requestPermissions(@NonNull Context context, @NonNull int requestCode,
         @NonNull String[] permissions, OnPermissionListener listener) {
         mRequestCode = requestCode;
         mOnPermissionListener = listener;
         String[] deniedPermissions = getDeniedPermissions(context, permissions);
-        if (deniedPermissions.length > 0) {
+        if (deniedPermissions.length > 0 && Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             requestPermissionsAgain(context, permissions, requestCode);
         } else {
             if (mOnPermissionListener != null) mOnPermissionListener.onPermissionGranted();
