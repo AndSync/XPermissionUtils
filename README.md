@@ -8,7 +8,7 @@
 1、gradle引入
 ```
 dependencies {
-    compile 'com.andsync.xpermission:XPermissionUtils:1.2'
+    compile 'com.andsync.xpermission:XPermissionUtils:1.3'
 }
 ```
 2、Maven引入
@@ -16,7 +16,7 @@ dependencies {
 <dependency>
   <groupId>com.andsync.xpermission</groupId>
   <artifactId>XPermissionUtils</artifactId>
-  <version>1.2</version>
+  <version>1.3</version>
   <type>pom</type>
 </dependency>
 ```
@@ -76,6 +76,14 @@ private void doOpenCamera() {
                     }
                 }
             });
+    }
+```
+#### 4、内存占用清理
+```
+    @Override
+    protected void onStop() {
+        super.onStop();
+        XPermissionUtils.clear();
     }
 ```
 
