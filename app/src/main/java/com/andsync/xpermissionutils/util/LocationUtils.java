@@ -16,11 +16,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Desc:获取位置工具类
- * Author：LiZhimin
- * Date：2016/12/7 20:16
- * Version V1.0
- * Copyright © 2016 LiZhimin All rights reserved.
+ * 获取位置工具类
+ *
+ * @author AndSync
+ * @date 2017/10/30
+ * Copyright © 2014-2017 AndSync All rights reserved.
  */
 public class LocationUtils {
     private static final String TAG = "LocationUtil";
@@ -50,7 +50,9 @@ public class LocationUtils {
         LocationManager locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
         //获取所有可用的位置提供器
         List<String> providers = locationManager.getProviders(true);
-        if (providers == null) return;
+        if (providers == null) {
+            return;
+        }
 
         //获取Location
         if (ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION)
@@ -65,7 +67,8 @@ public class LocationUtils {
             // for ActivityCompat#requestPermissions for more details.
             return;
         }
-        List<String> providerSortList = new ArrayList<>();//对提供者进行排序，gps、net、passive
+        //对提供者进行排序，gps、net、passive
+        List<String> providerSortList = new ArrayList<>();
         if (providers.contains(LocationManager.GPS_PROVIDER)) {
             Log.d(TAG, "GPS_PROVIDER");
             providerSortList.add(LocationManager.GPS_PROVIDER);

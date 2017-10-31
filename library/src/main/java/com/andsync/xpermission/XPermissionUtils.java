@@ -1,5 +1,5 @@
 /*
- * Copyright © 2017 LiZhimin All rights reserved.
+ * Copyright © 2017 AndSync All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -27,22 +27,29 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Desc:Android 6.0运行时权限处理工具类
- * Author：LiZhimin
- * Date：2017/3/13 18:10
- * Version V1.0
- * Link:<a href="https://github.com/AndSync/XPermissionUtils"></>
- * Copyright © 2017 LiZhimin All rights reserved.
+ * Android 6.0运行时权限处理 <a href="https://github.com/AndSync/XPermissionUtils">
+ *
+ * @author AndSync
+ * @date 2017/10/30
+ * Copyright © 2014-2017 AndSync All rights reserved.
  */
 public class XPermissionUtils {
 
-    private static int mRequestCode = -1;
-    private static OnPermissionListener mOnPermissionListener;
+    private static int sRequestCode = -1;
+    private static OnPermissionListener sListener;
 
     public interface OnPermissionListener {
-
+        /**
+         * 授权成功
+         */
         void onPermissionGranted();
 
+        /**
+         * 请求权限失败
+         *
+         * @param deniedPermissions 被拒绝的权限集合
+         * @param alwaysDenied 拒绝后是否提示
+         */
         void onPermissionDenied(String[] deniedPermissions, boolean alwaysDenied);
     }
 
@@ -58,13 +65,15 @@ public class XPermissionUtils {
 
     public static void requestPermissions(@NonNull Context context, @NonNull int requestCode,
         @NonNull String[] permissions, OnPermissionListener listener) {
-        mRequestCode = requestCode;
-        mOnPermissionListener = listener;
+        sRequestCode = requestCode;
+        sListener = listener;
         String[] deniedPermissions = getDeniedPermissions(context, permissions);
         if (deniedPermissions.length > 0 && Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             requestPermissionsAgain(context, permissions, requestCode);
         } else {
-            if (mOnPermissionListener != null) mOnPermissionListener.onPermissionGranted();
+            if (sListener != null) {
+                sListener.onPermissionGranted();
+            }
         }
     }
 
@@ -73,14 +82,14 @@ public class XPermissionUtils {
      */
     public static void onRequestPermissionsResult(@NonNull Activity context, int requestCode,
         @NonNull String[] permissions, int[] grantResults) {
-        if (mRequestCode != -1 && requestCode == mRequestCode) {
-            if (mOnPermissionListener != null) {
+        if (sRequestCode != -1 && requestCode == sRequestCode) {
+            if (sListener != null) {
                 String[] deniedPermissions = getDeniedPermissions(context, permissions);
                 if (deniedPermissions.length > 0) {
                     boolean alwaysDenied = hasAlwaysDeniedPermission(context, permissions);
-                    mOnPermissionListener.onPermissionDenied(deniedPermissions, alwaysDenied);
+                    sListener.onPermissionDenied(deniedPermissions, alwaysDenied);
                 } else {
-                    mOnPermissionListener.onPermissionGranted();
+                    sListener.onPermissionGranted();
                 }
             }
         }
@@ -103,12 +112,21 @@ public class XPermissionUtils {
      * 是否彻底拒绝了某项权限
      */
     private static boolean hasAlwaysDeniedPermission(@NonNull Context context, @NonNull String... deniedPermissions) {
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) return false;
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
+            return false;
+        }
         boolean rationale;
         for (String permission : deniedPermissions) {
             rationale = ActivityCompat.shouldShowRequestPermissionRationale((Activity) context, permission);
-            if (!rationale) return true;
+            if (!rationale) {
+                return true;
+            }
         }
         return false;
+    }
+
+    public static void clear() {
+        sListener = null;
+        sRequestCode = -1;
     }
 }

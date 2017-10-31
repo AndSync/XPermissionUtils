@@ -19,11 +19,11 @@ import com.andsync.xpermissionutils.util.PermissionHelper;
 import com.andsync.xpermissionutils.util.RequestCode;
 
 /**
- * Desc:演示页面
- * Author：LiZhimin
- * Date：2016/12/7 18:51
- * Version V1.0
- * Copyright © 2016 LiZhimin All rights reserved.
+ * 演示页面
+ *
+ * @author AndSync
+ * @date 2017/10/30
+ * Copyright © 2014-2017 AndSync All rights reserved.
  */
 public class MainActivity extends BaseActivity implements View.OnClickListener {
 
@@ -207,7 +207,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 @Override
                 public void onPermissionDenied(final String[] deniedPermissions, boolean alwaysDenied) {
                     Toast.makeText(context, "获取相机权限失败", Toast.LENGTH_SHORT).show();
-                    if (alwaysDenied) { // 拒绝后不再询问 -> 提示跳转到设置
+                    // 拒绝后不再询问 -> 提示跳转到设置
+                    if (alwaysDenied) {
                         DialogUtil.showPermissionManagerDialog(MainActivity.this, "相机");
                     } else {    // 拒绝 -> 提示此公告的意义，并可再次尝试获取权限
                         new AlertDialog.Builder(context).setTitle("温馨提示")

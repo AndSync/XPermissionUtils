@@ -5,11 +5,11 @@ import android.support.v7.app.AppCompatActivity;
 import com.andsync.xpermission.XPermissionUtils;
 
 /**
- * Desc:Activity基类
- * Author：LiZhimin
- * Date：2016/12/7 18:51
- * Version V1.0
- * Copyright © 2016 LiZhimin All rights reserved.
+ * Activity基类
+ *
+ * @author AndSync
+ * @date 2017/10/30
+ * Copyright © 2014-2017 AndSync All rights reserved.
  */
 public class BaseActivity extends AppCompatActivity {
 
@@ -18,5 +18,11 @@ public class BaseActivity extends AppCompatActivity {
         @NonNull int[] grantResults) {
         XPermissionUtils.onRequestPermissionsResult(this, requestCode, permissions, grantResults);
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        XPermissionUtils.clear();
     }
 }

@@ -10,11 +10,11 @@ import android.support.v7.app.AlertDialog;
 import com.andsync.xpermissionutils.R;
 
 /**
- * Desc:
- * Author：LiZhimin
- * Date：2016/12/7 20:16
- * Version V1.0
- * Copyright © 2016 LiZhimin All rights reserved.
+ * Dialog工具类
+ *
+ * @author AndSync
+ * @date 2017/10/30
+ * Copyright © 2014-2017 AndSync All rights reserved.
  */
 public class DialogUtil {
 

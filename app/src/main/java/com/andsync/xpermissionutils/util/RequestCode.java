@@ -1,17 +1,35 @@
 package com.andsync.xpermissionutils.util;
 
 /**
- * Desc:请求码
- * Author：LiZhimin
- * Date：2016/12/7 18:10
- * Version V1.0
- * Copyright © 2016 LiZhimin All rights reserved.
+ * 请求码
+ *
+ * @author AndSync
+ * @date 2017/10/30
+ * Copyright © 2014-2017 AndSync All rights reserved.
  */
 public interface RequestCode {
-    int PHONE = 0x00;//电话
-    int LOCATION = 0x01;//位置
-    int CAMERA = 0x02;//相机
-    int AUDIO = 0x04;//语音
-    int EXTERNAL = 0x08;//存储
-    int MORE = 0x10;//多个
+    /**
+     * 电话
+     */
+    int PHONE = 0x00;
+    /**
+     * 位置
+     */
+    int LOCATION = 0x01;
+    /**
+     * 相机
+     */
+    int CAMERA = 0x02;
+    /**
+     * 语音
+     */
+    int AUDIO = 0x04;
+    /**
+     * 存储
+     */
+    int EXTERNAL = 0x08;
+    /**
+     * 多个
+     */
+    int MORE = 0x10;
 }

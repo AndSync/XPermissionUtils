@@ -8,11 +8,11 @@ import android.media.AudioRecord;
 import android.media.MediaRecorder;
 
 /**
- * Desc:可能会有用的一些方法
- * Author：LiZhimin
- * Date：2016/12/7 18:10
- * Version V1.0
- * Copyright © 2016 LiZhimin All rights reserved.
+ * 可能会有用的一些方法
+ *
+ * @author AndSync
+ * @date 2017/10/30
+ * Copyright © 2014-2017 AndSync All rights reserved.
  */
 public class PermissionHelper {
     /**
@@ -66,7 +66,8 @@ public class PermissionHelper {
         Camera mCamera = null;
         try {
             mCamera = Camera.open();
-            Camera.Parameters mParameters = mCamera.getParameters(); //针对魅族手机
+            //针对魅族手机
+            Camera.Parameters mParameters = mCamera.getParameters();
             mCamera.setParameters(mParameters);
         } catch (Exception e) {
             isCanUse = false;
