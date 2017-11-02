@@ -19,10 +19,4 @@ public class BaseActivity extends AppCompatActivity {
         XPermissionUtils.onRequestPermissionsResult(this, requestCode, permissions, grantResults);
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-        XPermissionUtils.clear();
-    }
 }

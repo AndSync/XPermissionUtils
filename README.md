@@ -78,14 +78,6 @@ private void doOpenCamera() {
             });
     }
 ```
-#### 4、内存占用清理
-```
-    @Override
-    protected void onStop() {
-        super.onStop();
-        XPermissionUtils.clear();
-    }
-```
 
 # 特别鸣谢
 [MPermissionUtils](https://github.com/Airsaid/MPermissionUtils)
